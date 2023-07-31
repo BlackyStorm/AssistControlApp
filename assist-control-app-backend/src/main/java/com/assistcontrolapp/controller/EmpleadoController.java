@@ -74,15 +74,23 @@ public class EmpleadoController {
 
 
     // buscar empleado por nombre
-    /*
-    @GetMapping("/empleado/{nombre}")
-    public ResponseEntity<Empleado> listarEmpleadoPorId(@PathVariable String nombre) {
-        Empleado empleado = empleadoRepository.findByName(nombre)
-                .orElseThrow(() -> new ResourceNotFoundException("El empleado con ese nombre no existe :" + nombre));
-        return ResponseEntity.ok(empleado);
-    }*/
-    // buscar empleado por tipo contrato
 
+    @GetMapping("/empleados/nombre/{nombre}")
+    public ResponseEntity<List<Empleado>> listarEmpleadoPorNombre(@PathVariable String nombre) {
+        List<Empleado> empleado = empleadoRepository.findByName(nombre);
+        return ResponseEntity.ok(empleado);
+    }
+    // buscar empleado por tipo contrato
+    @GetMapping("/empleados/tipoContrato/{nombre}")
+    public ResponseEntity<List<Empleado>> listarEmpleadoPorTipoContrato(@PathVariable String nombre) {
+        List<Empleado> empleado = empleadoRepository.findByTypeOfContractName(nombre);
+        return ResponseEntity.ok(empleado);
+    }
     // buscar empleado por cargo
+    @GetMapping("/empleados/cargo/{nombre}")
+    public ResponseEntity<List<Empleado>> listarEmpleadoPorCargo(@PathVariable String nombre) {
+        List<Empleado> empleado = empleadoRepository.findBypositionName(nombre);
+        return ResponseEntity.ok(empleado);
+    }
 
 }
