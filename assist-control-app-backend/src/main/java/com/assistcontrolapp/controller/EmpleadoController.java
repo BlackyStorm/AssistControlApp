@@ -74,10 +74,11 @@ public class EmpleadoController {
 
 
     // buscar empleado por nombre
-   /* @GetMapping("/empleado/{nombre}")
+    /*
+    @GetMapping("/empleado/{nombre}")
     public ResponseEntity<Empleado> listarEmpleadoPorId(@PathVariable String nombre) {
         Empleado empleado = empleadoRepository.findByName(nombre)
-                .orElseThrow(() -> new ResourceNotFoundException("El empleado con ese ID no existe :" + nombre));
+                .orElseThrow(() -> new ResourceNotFoundException("El empleado con ese nombre no existe :" + nombre));
         return ResponseEntity.ok(empleado);
     }*/
     // buscar empleado por tipo contrato

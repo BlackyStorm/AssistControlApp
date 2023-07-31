@@ -40,6 +40,15 @@ public class CargoController {
     }
 
     //actualizar cargo
+    public ResponseEntity<Cargo> actualizarCargo(@PathVariable Long id, @RequestBody Cargo cargoRequest){
+        Cargo cargo = cargoRepository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("El cargo con ese ID no existe :"+ id));
+        cargo.setNombreCargo(cargoRequest.getNombreCargo());
+
+        Cargo cargoActualizado = cargoRepository.save(cargo);
+
+        return ResponseEntity.ok(cargoActualizado);
+    }
 
     //Eliminar cargo
     @DeleteMapping("/cargos/{id}")

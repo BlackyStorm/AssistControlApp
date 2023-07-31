@@ -19,9 +19,9 @@ public class TipoContrato {
     private long id;
 
     @Column(name="nombre_tipo_contrato")
-    private String nombre;
+    private String nombreTipo;
 
     @Column(name="caracteristica_tipo_contrato")
-    private String correo;
+    private String caracteristica;
 
 }
