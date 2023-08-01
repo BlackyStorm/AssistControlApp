@@ -21,6 +21,8 @@ public class TipoContratoController {
     @Autowired
     private TipoContratoRepository tipoContratoRepository;
 
+
+
     //Listar tipos de contrato
     @GetMapping("/tipoContrato")
     private List<TipoContrato> listarTiposDeContrato(){

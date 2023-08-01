@@ -3,6 +3,8 @@ package com.assistcontrolapp.controller;
 
 import com.assistcontrolapp.exeption.ResourceNotFoundException;
 import com.assistcontrolapp.model.Empleado;
+import com.assistcontrolapp.model.EmpleadoCargoTipoContrato;
+import com.assistcontrolapp.repository.EmpleadoCargoTipoContratoRepository;
 import com.assistcontrolapp.repository.EmpleadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,13 +14,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+@CrossOrigin(origins = "http://localhost:3000/")
 @RestController
 @RequestMapping("/api")
 public class EmpleadoController {
 
     @Autowired
     private EmpleadoRepository empleadoRepository;
+
+    @Autowired
+    private EmpleadoCargoTipoContratoRepository empleadoCargoTipoContratoRepository;
 
     //Listar empleados
     @GetMapping("/empleados")
@@ -90,6 +95,12 @@ public class EmpleadoController {
     @GetMapping("/empleados/cargo/{nombre}")
     public ResponseEntity<List<Empleado>> listarEmpleadoPorCargo(@PathVariable String nombre) {
         List<Empleado> empleado = empleadoRepository.findBypositionName(nombre);
+        return ResponseEntity.ok(empleado);
+    }
+
+    @GetMapping("/empleados/all")
+    public ResponseEntity<List<EmpleadoCargoTipoContrato>> listarEmpleadoConCargoYTipoContrato(){
+        List<EmpleadoCargoTipoContrato> empleado = empleadoCargoTipoContratoRepository.findAllWithPositionAndContract();
         return ResponseEntity.ok(empleado);
     }
 
