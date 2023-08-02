@@ -7,6 +7,10 @@ class TipoContratoService{
         getAllTipoContrato(){
             return axios.get(TIPO_CONTRATO_BASE_REST_API_URL);
         }
+
+        saveTipoContrato(tipoContrato){
+            return axios.post(TIPO_CONTRATO_BASE_REST_API_URL,tipoContrato)
+        }
         
 }
 

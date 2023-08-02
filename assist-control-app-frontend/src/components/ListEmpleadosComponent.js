@@ -8,11 +8,14 @@ export const ListEmpleadosComponent = () => {
 
     const [searchPosition,setSearchPosition]= useState("");
     const [searchContract,setSearchContract]= useState("");
+    const [searchName,setSearchName]= useState("");
+    const [searchSurname,setSearchSurname]= useState("");
+    const [searchEmail,setSearchEmail]= useState("");
+
 
     useEffect(()=>{
         EmpleadoService.getAllEmpleadosWithPositionAndContract().then(response => {
             setEmpleados(response.data);
-            console.log(response.data);
         }).catch(error => {
             console.log(error);
         })
@@ -29,16 +32,36 @@ export const ListEmpleadosComponent = () => {
         //console.log(e.target.value);
     }
 
+    // const searcherName= (e) =>{
+    //     setSearchName(e.target.value)
+    //     console.log(e.target.value);
+    // }
+    
+    // const searcherSurname= (e) =>{
+    //     setSearchSurname(e.target.value)
+    //     console.log(e.target.value);
+    // }
 
-    let resultados= !searchPosition ? empleados: empleados.filter((emple) =>emple.cargo.toLowerCase().includes(searchPosition.toLocaleLowerCase())
-)       
+    // const searcherEmail= (e) =>{
+    //     setSearchEmail(e.target.value)
+    //     console.log(e.target.value);
+    // }
 
+
+    let resultados= !searchPosition ? empleados: empleados.filter((emple) =>emple.cargo.toLowerCase().includes(searchPosition.toLocaleLowerCase()))       
 
     
-    if(searchContract ){
-        resultados=  resultados= !searchContract ? empleados: empleados.filter((emple) =>emple.tipoContrato.toLowerCase().includes(searchContract.toLocaleLowerCase()))
-    }else{
-       
+    // if(searchName){
+    //     resultados= !searchName ? empleados: empleados.filter((emple) =>emple.nombre.toLowerCase().includes(searchName.toLocaleLowerCase()))
+    // }
+    // if(searchSurname){
+    //     resultados= !searchSurname ? empleados: empleados.filter((emple) =>emple.apellido.toLowerCase().includes(searchSurname.toLocaleLowerCase()))
+    // }
+    // if(searchEmail){
+    //     resultados= !searchEmail ? empleados: empleados.filter((emple) =>emple.correo.toLowerCase().includes(searchEmail.toLocaleLowerCase()))
+    // }
+    if(searchContract){
+        resultados= !searchContract ? empleados: empleados.filter((emple) =>emple.tipoContrato.toLowerCase().includes(searchContract.toLocaleLowerCase()))
     }
     
 
@@ -72,14 +95,14 @@ export const ListEmpleadosComponent = () => {
                 </thead>
                 <thead>
                     <th>
-                        <input type='text' placeholder='filtrar' className='form-control'/>
+                        {/* <input value={searchName} onChange={searcherName} type='text' placeholder='filtrar' className='form-control'/> */}
                         
                     </th>
                     <th>
-                        <input type='text' placeholder='filtrar'  className='form-control'/>
+                        {/* <input value={searchSurname} onChange={searcherSurname} type='text' placeholder='filtrar'  className='form-control'/> */}
                     </th>
                     <th>
-                        <input type='text' placeholder='filtrar'  className='form-control'/>
+                        {/* <input value={searchEmail} onChange={searcherEmail} type='text' placeholder='filtrar'  className='form-control'/> */}
                     </th>
                     <th>
                         <input value={searchPosition} onChange={searcherPosition} type='text' placeholder='filtrar'  className='form-control'/>
@@ -97,7 +120,6 @@ export const ListEmpleadosComponent = () => {
                             resultados.map(
                                 empleado =>
                                 <tr key={empleado.id}>
-                                    
                                     <td>{empleado.nombre}</td>
                                     <td>{empleado.apellido}</td>
                                     <td>{empleado.correo}</td>

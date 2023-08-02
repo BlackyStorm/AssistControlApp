@@ -1,13 +1,36 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import CargoService from '../services/CargoService';
+import { useNavigate } from 'react-router-dom';
 
 export const AddCargoComponent = () => {
 
-    const [nombre,setNombre] = useState('');
+
+    const [cargos,setCargos] = useState([]);
+
+    const [nombreCargo,setNombreCargo] = useState('');
+
+    const navigate = useNavigate();
+
+    
+
+    useEffect(()=>{
+        CargoService.getAllCargos().then(response => {
+            setCargos(response.data);
+        }).catch(error => {
+            console.log(error);
+        })
+    },[])
 
     const saveCargo = (e) => {
         e.preventDefault();
-        const cargo = {nombre}
-        console.log(cargo);
+        const cargo = {nombreCargo}
+        CargoService.saveCargo(cargo).then((response)=> {
+            console.log(response.data);
+            
+            navigate('/');
+        }).catch(error => {
+            console.log(error);
+        })
     }
 
   return (
@@ -25,14 +48,35 @@ export const AddCargoComponent = () => {
                                     placeholder='Ingrese el nombre del nuevo cargo'
                                     name='nombre'
                                     className='form-control'
-                                    value={nombre}
-                                    onChange={ (e)=> setNombre(e.target.value)}
+                                    value={nombreCargo}
+                                    onChange={ (e)=> setNombreCargo(e.target.value)}
                                 />
                             </div>
                             <button className='btn btn-success' onClick={(e=>saveCargo(e))}>Guardar</button>
                         </form>
                     </div>
                 </div>
+            </div>
+            <div className='row'>
+            <h2>Cargos existentes</h2>
+            <table className='table table-bordered table-striped'>
+                <thead>
+                    <th>
+                         Cargos
+                    </th>
+                </thead>
+                <tbody>
+                        {
+                            cargos.map(
+                                cargo =>
+                                <tr key={cargo.id}>
+                                    <td>{cargo.nombreCargo}</td> 
+                                </tr>
+                            )
+                        }
+
+                    </tbody>
+            </table>
             </div>
         </div>
     </div>
