@@ -22,7 +22,6 @@ public class ContratoController {
     // listar contratos
     @GetMapping("/contratos")
     private List<Contrato> listarContratos(){
-
         return contratoRepository.findAll();
     }
 
@@ -35,7 +34,6 @@ public class ContratoController {
     //Buscar contrato por id
     @GetMapping("/contratos/{id}")
     public ResponseEntity<Contrato> listarCotratoPorId(@PathVariable Long id){
-
         Contrato contrato = contratoRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("El contrato con ese ID no existe :"+ id));
         return ResponseEntity.ok(contrato);

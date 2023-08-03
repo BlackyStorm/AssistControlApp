@@ -13,6 +13,10 @@ class EmpleadoService{
         return axios.get(EMPLEADO_BASE_REST_API_URL+"/all")
     }
 
+    saveEmpelado(empleado){
+        return axios.post(EMPLEADO_BASE_REST_API_URL,empleado)
+    }
+
 }
 
 export default new EmpleadoService();

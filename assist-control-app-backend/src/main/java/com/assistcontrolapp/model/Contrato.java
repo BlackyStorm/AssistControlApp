@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.security.Timestamp;
+import java.sql.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,7 +22,7 @@ public class Contrato {
     private long id;
 
     @Column(name="fecha_contrato")
-    private Timestamp fecha;
+    private String fecha;
 
     @Column(name="sueldo_contrato")
     private long sueldo;

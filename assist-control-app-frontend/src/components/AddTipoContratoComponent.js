@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import TipoContratoService from '../services/TipoContratoService';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import swal from 'sweetalert';
 
 export const AddTipoContratoComponent = () => {
 
     const [nombreTipo,setNombre] = useState('');
     const [caracteristica,setCaracteristica] = useState('');
-
+    const [idC, setIdC]= useState (-1);
     const [contratos,setContratos]= useState([]);
 
     const navigate = useNavigate();
@@ -17,17 +19,31 @@ export const AddTipoContratoComponent = () => {
         }).catch(error => {
             console.log(error);
         })
-    },[])
+        setNombre("");
+        setCaracteristica("");
+    },[idC])
 
     const saveTipoContrato = (e) => {
         e.preventDefault();
         const tipoContrato = {nombreTipo,caracteristica}
         TipoContratoService.saveTipoContrato(tipoContrato).then((response)=> {
+            setIdC(response.data.id)
             console.log(response.data);
-            
-            navigate('/');
+            swal({
+                text: "El nuevo tipo de contrato fue agregado exitosamente",
+                icon: "success",
+                button: "Aceptar",
+                timer: "2000"
+            })
         }).catch(error => {
+            swal({
+                text: "Ocurrio un error, intenta mas tarde",
+                icon: "error",
+                button: "Aceptar",
+                timer: "2000"
+            })
             console.log(error);
+            
         })
         
     }
@@ -61,8 +77,11 @@ export const AddTipoContratoComponent = () => {
                                     value={caracteristica}
                                     onChange={ (e)=> setCaracteristica(e.target.value)}
                                 />
+                                
                             </div>
                             <button className='btn btn-success' onClick={(e=>saveTipoContrato(e))}>Guardar</button>
+                            &nbsp;&nbsp;
+                            <Link to='/empleados' className='btn btn-danger'>Cancelar</Link>
                         </form>
                     </div>
                 </div>
