@@ -32,42 +32,32 @@ export const ListEmpleadosComponent = () => {
         //console.log(e.target.value);
     }
 
-    // const searcherName= (e) =>{
-    //     setSearchName(e.target.value)
-    //     console.log(e.target.value);
-    // }
+    const searcherName= (e) =>{
+        setSearchName(e.target.value)
+    }
     
-    // const searcherSurname= (e) =>{
-    //     setSearchSurname(e.target.value)
-    //     console.log(e.target.value);
-    // }
+    const searcherSurname= (e) =>{
+        setSearchSurname(e.target.value)
+    }
 
-    // const searcherEmail= (e) =>{
-    //     setSearchEmail(e.target.value)
-    //     console.log(e.target.value);
-    // }
+    const searcherEmail= (e) =>{
+        setSearchEmail(e.target.value)
+    }
 
 
            
 
-    
-    // if(searchName){
-    //     resultados= !searchName ? empleados: empleados.filter((emple) =>emple.nombre.toLowerCase().includes(searchName.toLocaleLowerCase()))
-    // }
-    // if(searchSurname){
-    //     resultados= !searchSurname ? empleados: empleados.filter((emple) =>emple.apellido.toLowerCase().includes(searchSurname.toLocaleLowerCase()))
-    // }
-    // if(searchEmail){
-    //     resultados= !searchEmail ? empleados: empleados.filter((emple) =>emple.correo.toLowerCase().includes(searchEmail.toLocaleLowerCase()))
-    // }
 
-   
     useEffect(()=>{
         let copyResultados =!searchPosition ? empleados: empleados.filter((emple) =>emple.cargo.toLowerCase().includes(searchPosition.toLocaleLowerCase()));
-        copyResultados= !searchContract? copyResultados:copyResultados.filter((emple)=> emple.tipoContrato.toLowerCase().includes(searchContract.toLocaleLowerCase()))
+        copyResultados= !searchContract? copyResultados:copyResultados.filter((emple)=> emple.tipoContrato.toLowerCase().includes(searchContract.toLocaleLowerCase()));
+        copyResultados=!searchEmail ? copyResultados: copyResultados.filter((emple) =>emple.correo.toLowerCase().includes(searchEmail.toLocaleLowerCase()));
+        copyResultados=!searchSurname ? copyResultados: copyResultados.filter((emple) =>emple.apellido.toLowerCase().includes(searchSurname.toLocaleLowerCase()));
+        copyResultados=!searchName ? copyResultados: copyResultados.filter((emple) =>emple.nombre.toLowerCase().includes(searchName.toLocaleLowerCase()))
+
         setResultados(copyResultados);
         
-    },[searchPosition,searchContract])
+    },[searchPosition,searchContract,searchName,searchSurname,searchEmail])
     
     
 
@@ -99,16 +89,15 @@ export const ListEmpleadosComponent = () => {
                         Acciones
                     </th>
                 </thead>
-                <thead>
+                <tbody>
                     <th>
-                        {/* <input value={searchName} onChange={searcherName} type='text' placeholder='filtrar' className='form-control'/> */}
-                        
+                        <input value={searchName} onChange={searcherName} type='text' placeholder='filtrar' className='form-control'/>
                     </th>
                     <th>
-                        {/* <input value={searchSurname} onChange={searcherSurname} type='text' placeholder='filtrar'  className='form-control'/> */}
+                        <input value={searchSurname} onChange={searcherSurname} type='text' placeholder='filtrar'  className='form-control'/>
                     </th>
                     <th>
-                        {/* <input value={searchEmail} onChange={searcherEmail} type='text' placeholder='filtrar'  className='form-control'/> */}
+                        <input value={searchEmail} onChange={searcherEmail} type='text' placeholder='filtrar'  className='form-control'/>
                     </th>
                     <th>
                         <input value={searchPosition} onChange={searcherPosition} type='text' placeholder='filtrar'  className='form-control'/>
@@ -119,9 +108,6 @@ export const ListEmpleadosComponent = () => {
                     <th>
                         
                     </th>
-                 </thead>
-               
-                <tbody>
                         {
                             resultados.map(
                                 empleado =>
